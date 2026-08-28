@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getCategoryById } from '../constants/categories';
@@ -6,8 +5,7 @@ import { formatMissionDate } from '../utils/missionUtils';
 
 /**
  * Componente de Card para visualização e ações individuais de uma missão.
- * Suporta alternar status de conclusão, abrir edição e solicitar exclusão com
- * confirmação.
+ * Suporta alternar status de conclusão, abrir edição e solicitar exclusão com confirmação.
  */
 export default function MissionCard({
   mission,
@@ -33,6 +31,7 @@ export default function MissionCard({
         },
         {
           text: 'Excluir',
+          style: 'destructive',
           onPress: () => onDelete(mission.id),
         },
       ]
@@ -51,7 +50,7 @@ export default function MissionCard({
             <Ionicons name={category.icon} size={14} color={category.color} />
             <Text style={[styles.categoryText, { color: category.color }]}>
               {category.label}
-              </Text>
+            </Text>
           </View>
 
           {mission.createdAt ? (
@@ -68,13 +67,9 @@ export default function MissionCard({
         </Text>
 
         {/* Descrição opcional */}
-
         {mission.descricao ? (
           <Text
-            style={[
-              styles.description,
-              isCompleted && styles.descriptionCompleted,
-            ]}
+            style={[styles.description, isCompleted && styles.descriptionCompleted]}
             numberOfLines={3}
           >
             {mission.descricao}
@@ -87,9 +82,7 @@ export default function MissionCard({
           <View
             style={[
               styles.statusBadge,
-              isCompleted
-                ? styles.statusBadgeCompleted
-                : styles.statusBadgePending,
+              isCompleted ? styles.statusBadgeCompleted : styles.statusBadgePending,
             ]}
           >
             <Ionicons
@@ -97,7 +90,12 @@ export default function MissionCard({
               size={14}
               color={isCompleted ? '#059669' : '#D97706'}
             />
-            <Text style={styles.statusText}>
+            <Text
+              style={[
+                styles.statusText,
+                isCompleted ? styles.statusTextCompleted : styles.statusTextPending,
+              ]}
+            >
               {isCompleted ? 'Concluída' : 'Pendente'}
             </Text>
           </View>
@@ -119,6 +117,7 @@ export default function MissionCard({
                 color={isCompleted ? '#4B5563' : '#10B981'}
               />
             </TouchableOpacity>
+
             {/* Botão Compartilhar Missão */}
             {onShare ? (
               <TouchableOpacity
@@ -152,8 +151,9 @@ export default function MissionCard({
       </View>
     </View>
   );
+}
 
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
@@ -169,29 +169,24 @@ export default function MissionCard({
     borderColor: '#F3F4F6',
     overflow: 'hidden',
   },
-
   cardCompleted: {
     backgroundColor: '#F9FAFB',
     borderColor: '#E5E7EB',
     opacity: 0.88,
   },
-
   categoryIndicator: {
     width: 6,
   },
-
   contentContainer: {
     flex: 1,
     padding: 14,
   },
-
-    topRow: {
+  topRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 8,
   },
-
   categoryBadge: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -200,27 +195,93 @@ export default function MissionCard({
     borderRadius: 8,
     gap: 4,
   },
-
   categoryText: {
     fontSize: 12,
     fontWeight: '700',
   },
-
   dateText: {
     fontSize: 11,
     color: '#9CA3AF',
   },
-
   title: {
     fontSize: 16,
     fontWeight: '700',
     color: '#111827',
     marginBottom: 4,
   },
-
   titleCompleted: {
     color: '#6B7280',
     textDecorationLine: 'line-through',
   },
-
   description: {
+    fontSize: 13,
+    color: '#4B5563',
+    lineHeight: 18,
+    marginBottom: 10,
+  },
+  descriptionCompleted: {
+    color: '#9CA3AF',
+  },
+  actionsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 6,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#F3F4F6',
+  },
+  statusBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+    gap: 4,
+  },
+  statusBadgePending: {
+    backgroundColor: '#FFFBEB',
+  },
+  statusBadgeCompleted: {
+    backgroundColor: '#ECFDF5',
+  },
+  statusText: {
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  statusTextPending: {
+    color: '#B45309',
+  },
+  statusTextCompleted: {
+    color: '#047857',
+  },
+  buttonsGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  actionBtn: {
+    width: 34,
+    height: 34,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  completeBtn: {
+    backgroundColor: '#ECFDF5',
+  },
+  completedBtn: {
+    backgroundColor: '#F3F4F6',
+  },
+  shareBtn: {
+    backgroundColor: '#F5F3FF',
+  },
+  editBtn: {
+    backgroundColor: '#EFF6FF',
+  },
+  deleteBtn: {
+    backgroundColor: '#FEF2F2',
+  },
+});
+
+// fim

@@ -1,5 +1,3 @@
-missionUtils
-
 /**
  * Funções utilitárias para manipulação, cálculos e filtragem de missões.
  */
@@ -9,14 +7,13 @@ missionUtils
  * @returns {string} ID gerado
  */
 export function generateId() {
-    return `${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 9)};
-`;
+  return `${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 9)}`;
 }
 
 /**
  * Calcula métricas de progresso das missões cadastradas.
  * @param {Array} missions - Lista de missões
- * @returns {Object} Métricas: { total, completed, pending, percentage, isAllCompleted }
+ * @returns {object} Métricas: { total, completed, pending, percentage, isAllCompleted }
  */
 export function calculateProgress(missions = []) {
   const total = missions.length;
@@ -69,5 +66,6 @@ export function formatMissionDate(isoString) {
     });
   } catch {
     return '';
-    }
+  }
 }
+// fim

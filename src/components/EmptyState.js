@@ -5,7 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
  * Componente exibido quando a lista de missões está vazia.
  */
 export default function EmptyState({ filter = 'ALL', onAddMission }) {
-  let title = 'Nenhuma missão por aqui.';
+  // Ajusta o texto e ícone de acordo com o contexto do filtro
+  let title = 'Nenhuma missão por aqui!';
   let description = 'Crie sua primeira missão e comece o desafio agora mesmo.';
   let showButton = true;
 
@@ -22,24 +23,23 @@ export default function EmptyState({ filter = 'ALL', onAddMission }) {
   return (
     <View style={styles.container}>
       <View style={styles.iconCircle}>
-        <Ionicons name="checkmark-circle-outline" size={48} color="#2563EB" />
+        <Ionicons name="rocket-outline" size={48} color="#2563EB" />
       </View>
-
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
 
       {showButton && (
-  <TouchableOpacity
-    activeOpacity={0.8}
-    style={styles.actionButton}
-    onPress={onAddMission}
-  >
-    <Ionicons name="add-circle-outline" size={20} color="#FFFFFF" />
-    <Text style={styles.actionButtonText}>Criar primeira missão</Text>
-  </TouchableOpacity>
-)}
-</View>
-);
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={styles.actionButton}
+          onPress={onAddMission}
+        >
+          <Ionicons name="add-circle-outline" size={20} color="#FFFFFF" />
+          <Text style={styles.actionButtonText}>Criar primeira missão</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     padding: 32,
     marginTop: 24,
   },
-
   iconCircle: {
     width: 90,
     height: 90,
@@ -59,15 +58,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 16,
   },
-
-    title: {
+  title: {
     fontSize: 18,
     fontWeight: '700',
     color: '#1F2937',
     textAlign: 'center',
     marginBottom: 8,
   },
-
   description: {
     fontSize: 14,
     color: '#6B7280',
@@ -75,7 +72,6 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     marginBottom: 20,
   },
-
   actionButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -90,7 +86,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 4,
   },
-
   actionButtonText: {
     color: '#FFFFFF',
     fontSize: 15,

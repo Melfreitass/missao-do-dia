@@ -1,5 +1,5 @@
 import { Share, Alert } from 'react-native';
-import { getCategoryById } from './constants/categories';
+import { getCategoryById } from '../constants/categories';
 import { calculateProgress } from './missionUtils';
 
 /**
@@ -9,20 +9,17 @@ import { calculateProgress } from './missionUtils';
  */
 export function generateSingleMissionShareText(mission) {
   if (!mission) return '';
-
   const category = getCategoryById(mission.categoria);
   const status = mission.concluida ? 'Concluída' : 'Em andamento';
 
-  let text = 'MISSÃO DO DIA\n\n';
+  let text = `MISSÃO DO DIA\n\n`;
   text += `Missão: ${mission.titulo}\n`;
   text += `Categoria: ${category.label}\n`;
-
   if (mission.descricao) {
     text += `Descrição: ${mission.descricao}\n`;
   }
-
   text += `Status: ${status}\n\n`;
-  text += 'Desafio lançado! Qual será a sua missão hoje?';
+  text += `Desafio lançado! Qual será a sua missão hoje?`;
 
   return text;
 }
@@ -37,7 +34,6 @@ export async function shareMission(mission) {
 
   try {
     const message = generateSingleMissionShareText(mission);
-
     await Share.share({
       title: `Missão do Dia: ${mission.titulo}`,
       message: message,
@@ -49,7 +45,7 @@ export async function shareMission(mission) {
 }
 
 /**
- * Monta o texto formatado com o resumo geral.
+ * Monta o texto formatado com o resumo geral (opcional).
  */
 export function generateShareText(missions = []) {
   if (missions.length === 0) {
@@ -59,20 +55,13 @@ export function generateShareText(missions = []) {
   const { total, completed } = calculateProgress(missions);
 
   const missionLines = missions
-    .map((m) => {
-      const statusText = m.concluida ? '[Concluída]' : '[Pendente]';
-
-      return `${statusText} ${m.titulo}`;
+    .map((mission) => {
+      const statusText = mission.concluida ? '[Concluída]' : '[Pendente]';
+      return `${statusText} ${mission.titulo}`;
     })
     .join('\n');
 
-  return `MEU PROGRESSO — MISSÃO DO DIA
-
-${completed} de ${total} missões concluídas!
-
-${missionLines}
-
-Desafio lançado! Qual será a sua missão hoje?`;
+  return `MEU PROGRESSO — MISSÃO DO DIA\n\n${completed} de ${total} missões concluídas!\n\n${missionLines}\n\nDesafio lançado! Qual será a sua missão hoje?`;
 }
 
 /**
@@ -89,16 +78,14 @@ export async function shareProgress(missions = []) {
 
   try {
     const message = generateShareText(missions);
-
     await Share.share({
       title: 'Meu Progresso - Missão do Dia',
       message: message,
     });
   } catch (error) {
     console.error('Erro ao compartilhar progresso:', error);
-    Alert.alert(
-      'Ops!',
-      'Não foi possível abrir o compartilhamento.'
-    );
+    Alert.alert('Ops!', 'Não foi possível abrir o compartilhamento.');
   }
 }
+
+// fim

@@ -1,5 +1,3 @@
-storage 
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
@@ -35,7 +33,7 @@ export async function saveMissions(missions) {
     await AsyncStorage.setItem(STORAGE_KEY, jsonValue);
   } catch (error) {
     console.error('Erro ao salvar missões no AsyncStorage:', error);
-throw new Error('Não foi possível salvar as alterações no armazenamento.');
+    throw new Error('Não foi possível salvar as alterações no armazenamento.');
   }
 }
 

@@ -1,20 +1,30 @@
+import React from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Platform,
+  StatusBar as NativeStatusBar,
+} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import HomeScreen from './src/screens/HomeScreen';
 
+/**
+ * Ponto de entrada do aplicativo Missão do Dia.
+ * Configura a barra de status e a área segura da tela.
+ */
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar style="dark" />
+      <HomeScreen />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#F8FAFC',
+    paddingTop: Platform.OS === 'android' ? NativeStatusBar.currentHeight || 0 : 0,
   },
 });
